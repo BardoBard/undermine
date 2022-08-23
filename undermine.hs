@@ -33,11 +33,10 @@ range min max seed = nextUInt seed `mod` (max - min + 1) + min
 
 nextUInt seed = do
     let seedBin = decToBase 2 seed ""
-    let x     = xorB' seedBin $ shiftSB2BL32 11 seedBin --add if '1' then two else continue
-    let x'    = xorB' x       $ shiftUB2BR32 8 x
-    let y     = decToBase 2   (iterateFunc 3 badImul seed) ""
-    let y'    = xorB' y       $ shiftUB2BR32 19 y
-    
+    let x     = xorB' seedBin $ shiftBinL32 11 seedBin --add if '1' then two else continue
+    let x'    = xorB' x       $ shiftBinR32 8 x
+    let y     = decToBase 2   (iterateFunc  3 badImul' seed) ""
+    let y'    = xorB' y       $ shiftBinR32 19 y
     toDec (xorB' x' y')
 
 toTwos' :: [Char] -> [Char]
