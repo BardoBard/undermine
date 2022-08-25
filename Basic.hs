@@ -11,6 +11,17 @@ module Basic where
 pop :: Int -> [a] -> [a]
 pop n list = take (length list - n) list
 
+
+
+replace' :: [Int] -> [a] -> [a] -> [a]
+replace' [] _ zs  = zs
+replace' _ [] zs  = zs
+replace' (x:xs) (y:ys) zs = replace' xs ys $ replaceAtIndex x y zs
+
+
+replaceAtIndex :: Int -> a -> [a] -> [a]
+replaceAtIndex i x xs = take i xs ++ [x] ++ drop (i+1) xs
+
 --this needs looking at
 iterateFunc :: (Eq t1, Num t1) => t1 -> (t2 -> t2) -> t2 -> t2
 iterateFunc 0 _ x = x
@@ -21,7 +32,7 @@ iterateFunc n f x = iterateFunc (n - 1) f (f x)
 --
 -- e.g | badImul' 100 -> 181243325300
 badImul' :: Int -> Int
-badImul' = badImul 1812433253 
+badImul' = badImul 1812433253
 
 -- | 
 -- a bad way to do the javascript "imul"
@@ -65,6 +76,6 @@ toInt32 x =
 --
 -- returns: positive integer or 0
 naturalPos :: Int -> Int
-naturalPos x 
+naturalPos x
     | x <= 0    = 0
     | otherwise = x
