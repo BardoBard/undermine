@@ -1,4 +1,4 @@
-module Basic where
+module Basic where 
 
 -- |
 -- removes the last n elements from an array
@@ -21,6 +21,8 @@ replace' (x:xs) (y:ys) zs = replace' xs ys $ replaceAtIndex x y zs
 
 replaceAtIndex :: Int -> a -> [a] -> [a]
 replaceAtIndex i x xs = take i xs ++ [x] ++ drop (i+1) xs
+
+
 
 --this needs looking at
 iterateFunc :: (Eq t1, Num t1) => t1 -> (t2 -> t2) -> t2 -> t2
@@ -48,14 +50,15 @@ badImul x y = toUInt32 $ x * y
 --
 -- returns: Uint32
 toUInt32 :: Int -> Int
-toUInt32 x = do
-    let int32 = x `mod` 4294967295 - x `div` 4294967295 + 1
+toUInt32 x =
     if x > 4294967295
         then
             if int32 < 0
             then 4294967295 + int32 + 1
             else int32
         else x
+    where 
+        int32 = x `mod` 4294967295 - x `div` 4294967295 + 1
 
 -- |
 -- int to Sint32

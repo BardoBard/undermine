@@ -1,4 +1,4 @@
-module Binary.Operators where 
+module Binary.Operators where
 
 import Binary.Logicgates
 import Binary.Basic
@@ -73,3 +73,9 @@ binMin = adder minB
 -- returns: resulting binary string
 binPlus :: [Char] -> [Char] -> [Char]
 binPlus = adder plusB
+
+binMult xs ys = [ x ++ replicate z '0'|
+    y <- ys,
+    y == '1',
+    x <- [xs],
+    z <- [0 .. length ys - 1]]
