@@ -55,7 +55,7 @@ findIndex' name msg list = do
                     print "ERROR: Wrong input"
                     print msg
                     x <- getLine :: IO String
-                    findIndex x msg list
+                    findIndex' x msg list
 
 findIndexWithError :: String -> String -> [String] -> IO Int
 findIndexWithError name msg list = do
