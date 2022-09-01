@@ -11,7 +11,8 @@ module Basic where
 pop :: Int -> [a] -> [a]
 pop n list = take (length list - n) list
 
-
+remove :: Eq a => a -> [a] -> [a]
+remove element = filter (/= element)
 
 replace' :: [Int] -> [a] -> [a] -> [a]
 replace' [] _ zs  = zs

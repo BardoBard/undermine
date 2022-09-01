@@ -1,9 +1,8 @@
 module Binary.Conversion where
   
-import Data.List
-import Data.Char
-import Binary.Basic
-import Binary.Operators
+import Data.List ( foldl' )
+import Data.Char ( digitToInt, intToDigit )
+import Binary.Operators ( binPlus )
 
 -- |
 -- converts binary to an int

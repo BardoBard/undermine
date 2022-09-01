@@ -1,7 +1,7 @@
 module Binary.Operators where 
 
-import Binary.Logicgates
-import Binary.Basic
+import Binary.Logicgates ( minB, plusB, orB, xorB, andB )
+import Binary.Basic ( matchLength )
 
 -- |
 -- calculates the difference of an adder

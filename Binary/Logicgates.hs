@@ -1,9 +1,6 @@
 module Binary.Logicgates where
 
-import Binary.Basic
-import Basic
-import Data.Char
-import Data.List
+import Binary.Basic ( matchLength )
 
 -- NOT
 

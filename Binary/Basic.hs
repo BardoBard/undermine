@@ -1,5 +1,5 @@
 module Binary.Basic where
-import Basic
+import Basic ( naturalPos )
 
 -- | 
 -- convers a binary string/[char] to the length of x
