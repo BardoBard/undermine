@@ -58,6 +58,6 @@ amount msg = do
     case y of
         Just x -> return x
         Nothing -> do
-            print "ERROR: Wrong input \n\n"
+            print "ERROR: Wrong input"
             print msg
             amount msg
