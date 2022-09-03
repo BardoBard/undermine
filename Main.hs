@@ -1,10 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+import Json.Parser
+import Basic
+
 import System.Console.ANSI
 
 import Modes.Newsave.Newsave
-
-#!/usr/bin/env runhaskell
 
 main = do
     clearScreen
