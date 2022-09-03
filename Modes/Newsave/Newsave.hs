@@ -44,7 +44,6 @@ starterToNewsave y = case y of
 -- returns: [seed]
 --newsaveBacktracking :: [Int] -> Int -> [Int]
 newsaveBacktracking list n = do
-    print list
     starterItems' <- starterWeight
     starterItems <- starterItems'
     return $ take n [seed |
@@ -232,8 +231,15 @@ newsaveMain = do
     print "Amount of output: "
     n <- amount "Amount of output: "
 
+    let userRelics = [x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20]
+
     print "This may take a few minutes"
-    x <- newsaveBacktracking [x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20] n
-    appendFile "/Output.txt" $ show x
+    x <- newsaveBacktracking userRelics n
     timeIt $ print x
     print "Finished"
+
+
+    appendFile "Output.txt" $ (starterDisplay !! x1) ++ "\n\n" ++ show (showDisplay newsaveDisplay (tail userRelics))  ++ "\n" ++ show x
+    
+    getLine
+    
