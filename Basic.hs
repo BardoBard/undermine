@@ -1,4 +1,6 @@
 module Basic where
+import Control.Lens
+import Data.Char
 
 -- |
 -- removes the last n elements from an array
@@ -14,14 +16,42 @@ pop n list = take (length list - n) list
 remove :: Eq a => a -> [a] -> [a]
 remove element = filter (/= element)
 
+placeAt :: Int -> a -> [a] -> [a]
+placeAt index value list
+    | length list < index = list
+    | otherwise           = take index list ++ value : drop index list
+
 replace' :: [Int] -> [a] -> [a] -> [a]
-replace' [] _ zs  = zs
-replace' _ [] zs  = zs
-replace' (x:xs) (y:ys) zs = replace' xs ys $ replaceAtIndex x y zs
+replace' [] _ list  = list
+replace' _ [] list  = list
+replace' (i:index) (v:value) list = replace' index value $ replaceAt i v list
+
+deleteAt :: Int -> [a] -> [a]
+deleteAt index list
+    | length list <= index = list
+    | otherwise           = back ++ tail front
+        where
+            (back, front) = splitAt index list
+
+move' [] _  list = list
+move' _  [] list = list
+move' (i:index) (p:place) list = move' index place (move i p list)
+
+move :: Int -> Int -> [a] -> [a]
+move index place list
+    | length list <= index = list
+    | otherwise            = placeAt place (list !! index) (deleteAt index list)
 
 
-replaceAtIndex :: Int -> a -> [a] -> [a]
-replaceAtIndex i x xs = take i xs ++ [x] ++ drop (i+1) xs
+replaceAt :: Int -> a -> [a] -> [a]
+replaceAt i x xs = take i xs ++ [x] ++ drop (i+1) xs
+
+owo111 [] _  list = list
+owo111 _  [] list = list
+owo111 (i:index) (v:value) list = owo111 index value (replaceAt i v list)
+
+
+replaceAt'' index value list = list & element index .~ value
 
 --this needs looking at
 iterateFunc :: (Eq t1, Num t1) => t1 -> (t2 -> t2) -> t2 -> t2
@@ -40,7 +70,7 @@ badImul' = badImul 1812433253
 --
 -- e.g badImul 5 500 -> 2500
 --
--- returns a multiplication of two Uint32
+-- returns a multiplication of two @Uint32@
 badImul :: Int -> Int -> Int
 badImul x y = toUInt32 $ x * y
 
@@ -68,6 +98,8 @@ toInt32 x =
         then x - ceiling (fromIntegral x / 2147483647) * 2147483647
         else x
 
+listToLower list = map toLower <$> list
+
 -- | 
 -- can't go smaller than 0
 --
@@ -76,7 +108,7 @@ toInt32 x =
 -- e.g | nateralPos 100 -> 100
 --
 -- returns: positive integer or 0
-naturalPos :: Int -> Int
+naturalPos :: (Ord p, Num p) => p -> p
 naturalPos x
     | x <= 0    = 0
     | otherwise = x
