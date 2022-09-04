@@ -7,6 +7,8 @@ import Binary.Shift ( shiftBinL32, shiftBinR32 )
 import Binary.Logicgates ( xorB' )
 import Binary.Conversion ( toDec, decToBase )
 
+rooms = ["Mine 1", "Mine 2", "Mine 3", "Mine 4", "Dungeon 1", "Dungeon 2", "Dungeon 3", "Dungeon 4", "Halls 1", "Halls 2", "Halls 3", "Halls 4", "Caverns 1", "Caverns 2", "Caverns 3", "Caverns 4", "Core 1", "Core 2", "Core 3", "Core 4"]
+
 
 --this works every time
 range :: Int -> Int -> Int -> Int
@@ -16,9 +18,9 @@ nextUInt seed =
     toDec (xorB' x' y')
     where
         seedBin = decToBase 2 seed ""
-        x     = xorB' seedBin $ shiftBinL32 11 seedBin --add if '1' then two else continue
+        x     = xorB' seedBin $ shiftBinL32 11 seedBin
         x'    = xorB' x       $ shiftBinR32 8 x
-        y     = decToBase 2   (iterateFunc  3 badImul' seed) ""
+        y     = decToBase 2   (iterateFunc  3 badImul' seed) "" --TODO: make a binary multiplication function
         y'    = xorB' y       $ shiftBinR32 19 y
 
 reduceWeight :: [Int] -> Int -> Int

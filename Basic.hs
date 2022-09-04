@@ -1,4 +1,5 @@
 module Basic where
+    
 import Control.Lens
 import Data.Char
 
@@ -12,6 +13,7 @@ import Data.Char
 -- returns: new array
 pop :: Int -> [a] -> [a]
 pop n list = take (length list - n) list
+
 
 remove :: Eq a => a -> [a] -> [a]
 remove element = filter (/= element)
