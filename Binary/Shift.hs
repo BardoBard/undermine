@@ -3,7 +3,6 @@ module Binary.Shift where
 import Basic ( pop )
 import Binary.Basic ( toBinx )
 import Binary.Conversion ( toDec, decToBase )
-import Binary.Operators ()
 
 -- |
 -- shifts a signed binary string n places (in binary) to the left
