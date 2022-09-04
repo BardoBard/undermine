@@ -1,26 +1,15 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Modes.Newsave.Newsave where
 
 import System.Console.ANSI
 import System.TimeIt
+import Data.List
 
 --my libs
 import Modes.Shared
 import Basic
-import Json.Parser
+import Modes.Newsave.Json.Parser
 import Modes.Error
-
-
-
-newsaveDisplay :: [String]
-newsaveDisplay = ["Bombushka","Seer's Blood","Rook's Bomb","Lightning Bomb","Galoshes","Bottled Lightning","Salamander Tail","Guidance","Ursine Ring","Demon Ring","Intensifier","Cracked Orb","Conductor","Grimhilde's Mirror","Meal Ticket","Dillon's Claw","Bramble Vest","Leftovers","Spare Ordnance","Simple Chest","Unstable Concoction","Totem of Life","Golden Popcorn","Miner's Flask","Sewing Kit","Floating Skull","Float Boots","Key Blade","War Paint","Sonic Boom","Gold Frenzy","Butcher's Cleaver","Iron Branch","Knight's Pendant","Queen's Crown","Aegis","Adventurer's Whip","Axe Thrower's Pendant","Cosmic Egg","Battle Standard","Battle Axe","Tent","Masa","Lunchbox","Phantasmal Axe","Gecko Blast","Soul Cannon","Greaves","Pauldron","Obsidian Knife","Fork","Ursa Major","Canis Major","Sagitta","Circinus","Orion's Sword","Shrapnel","Tortoise Shield","Golden Axe"]
-
-starterDisplay :: [String]
-starterDisplay = ["Bottled Lightning","Butcher's Cleaver","Bombushka","Golden Popcorn","Guidance","Phantasmal Axe","Floating Skull","Salamander Tail","Fork"]
-
-newsaveItems :: [Int]
-newsaveItems = [9,9,9,9,9,9,9,9,9,9,9,3,9,9,9,9,9,9,9,9,9,9,9,9,3,3,9,9,9,9,9,9,9,9,3,9,3,9,3,9,9,9,3,9,9,1,3,5,5,3,3,9,9,9,9,9,9,9,3]
-
---starterItems = [9,9,9,9,9,9,9,9,1]
 
 starterToNewsave y = case y of
      0 -> 5
@@ -44,8 +33,7 @@ starterToNewsave y = case y of
 -- returns: [seed]
 --newsaveBacktracking :: [Int] -> Int -> [Int]
 newsaveBacktracking list n = do
-    starterItems' <- starterWeight
-    starterItems <- starterItems'
+    starterItems <- starterWeight
     return $ take n [seed |
         -- TODO: change -1 to a maybe
         let sum0     =  sum starterItems,
@@ -59,7 +47,7 @@ newsaveBacktracking list n = do
 
         --Mine 2
         let index1   = list !! 1,
-        let items1   = replaceAt (starterToNewsave x1) 0 newsaveItems, --replace last found relic to not show up again
+        let items1   = replaceAt (starterToNewsave x1) 0 newsaveWeight, --replace last found relic to not show up again
         let sum1     = sum items1, --get the sum of items
         let x2       = getIndex (seed + 2) items1 sum1, --find relic specific relic
         x2 == index1 || index1 == (-1), --check if user doesn't want relic or relic is what user wants
@@ -194,6 +182,7 @@ newsaveBacktracking list n = do
         ]
 
 newsaveMain = do
+    starterDisplay <- starterDisplay
     clearScreen
     putStr "\n\n"
     putStr "You are in newsave, if you'd like to quit press CTRL + C,"
@@ -208,38 +197,21 @@ newsaveMain = do
     x1 <- getLine :: IO String
     x1 <- findIndexWithError x1 "Mine 1: " starterDisplay
 
-    x2 <- nextRoom "Mine 2" newsaveDisplay
-    x3 <- nextRoom "Mine 3" newsaveDisplay
-    x4 <- nextRoom "Mine 4" newsaveDisplay
-    x5 <- nextRoom "Dungeon 1" newsaveDisplay
-    x6 <- nextRoom "Dungeon 2" newsaveDisplay
-    x7 <- nextRoom "Dungeon 3" newsaveDisplay
-    x8 <- nextRoom "Dungeon 4" newsaveDisplay
-    x9 <- nextRoom "Halls 1" newsaveDisplay
-    x10 <- nextRoom "Halls 2" newsaveDisplay
-    x11 <- nextRoom "Halls 3" newsaveDisplay
-    x12 <- nextRoom "Halls 4" newsaveDisplay
-    x13 <- nextRoom "Caverns 1" newsaveDisplay
-    x14 <- nextRoom "Caverns 2" newsaveDisplay
-    x15 <- nextRoom "Caverns 3" newsaveDisplay
-    x16 <- nextRoom "Caverns 4" newsaveDisplay
-    x17 <- nextRoom "Core 1" newsaveDisplay
-    x18 <- nextRoom "Core 2" newsaveDisplay
-    x19 <- nextRoom "Core 3" newsaveDisplay
-    x20 <- nextRoom "Core 4" newsaveDisplay
+    userInput' <- mapM (`nextRoom` newsaveDisplay) (tail rooms)
 
+    let userInput = x1 : userInput'
+
+    clearScreen
     print "Amount of output: "
     n <- amount "Amount of output: "
 
-    let userRelics = [x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20]
-
     print "This may take a few minutes"
-    x <- newsaveBacktracking userRelics n
+    x <- newsaveBacktracking userInput n
     timeIt $ print x
     print "Finished"
 
+    appendFile "Output.txt" $ "\n\n" ++ "newsave permutations:" ++ " \n" ++ show (transpose [rooms, (starterDisplay !! x1) : showDisplay newsaveDisplay (tail userInput)]) ++ "\nseeds: " ++ show x
 
-    appendFile "Output.txt" $ (starterDisplay !! x1) ++ "\n\n" ++ show (showDisplay newsaveDisplay (tail userRelics))  ++ "\n" ++ show x
-    
     getLine
+    newsaveMain
     
