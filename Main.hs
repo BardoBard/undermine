@@ -4,7 +4,17 @@ import Basic
 
 import System.Console.ANSI
 
+import Json.SaveParser
 import Modes.Newsave.Newsave
+import Modes.LoadSave.Json.Parser
+import Modes.LoadSave.LoadSave
+
+import Json.RelicParser (baseRelic)
+import Json.SaveParser
+import Modes.Json.Shared
+import Modes.Newsave.Json.Parser
+import Modes.Shared
+
 
 main = do
     clearScreen
