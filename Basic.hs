@@ -1,5 +1,5 @@
 module Basic where
-    
+
 import Control.Lens
 import Data.Char
 
@@ -48,9 +48,9 @@ move index place list
 replaceAt :: Int -> a -> [a] -> [a]
 replaceAt i x xs = take i xs ++ [x] ++ drop (i+1) xs
 
-owo111 [] _  list = list
-owo111 _  [] list = list
-owo111 (i:index) (v:value) list = owo111 index value (replaceAt i v list)
+placeAtIndex [] _  list = list
+placeAtIndex _  [] list = list
+placeAtIndex (i:index) (v:value) list = placeAtIndex index value (replaceAt i v list)
 
 
 replaceAt'' index value list = list & element index .~ value

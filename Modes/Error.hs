@@ -8,6 +8,8 @@ import Control.Applicative (liftA2)
 
 import Basic
 
+
+
 isInList name list = elemIndex (filterToDefault $ map toLower name) (map filterToDefault $ listToLower list)
 
 filterToDefault = filter ((/= '\'') <&&> (/= ' '))
@@ -52,6 +54,8 @@ nextRoom room list = do
 
     findIndex' x (room ++ ": ") list
 
+
+    
 amount msg = do
     x <- getLine
     let y = readMaybe x :: Maybe Int

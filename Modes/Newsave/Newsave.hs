@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Modes.Newsave.Newsave where
 
 import System.Console.ANSI
@@ -7,6 +6,7 @@ import Data.List
 
 --my libs
 import Modes.Shared
+import Modes.Json.Shared
 import Basic
 import Modes.Newsave.Json.Parser
 import Modes.Error
@@ -189,10 +189,6 @@ newsaveMain = do
     putStr "\nIf you'd like to skip a relic press enter. (after mine 1)"
     putStr "\n\n"
     putStr "\n\n\n\n\n\n\n\n\n\n\n"
-    putStr "Pick one of the following: "
-    putStr "\n\n"
-    print starterDisplay
-    putStr "\n"
     print "Mine 1: "
     x1 <- getLine :: IO String
     x1 <- findIndexWithError x1 "Mine 1: " starterDisplay
