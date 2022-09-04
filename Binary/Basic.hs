@@ -1,4 +1,5 @@
 module Binary.Basic where
+  
 import Basic ( naturalPos )
 
 -- | 
