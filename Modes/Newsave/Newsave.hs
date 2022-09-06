@@ -189,6 +189,10 @@ newsaveMain = do
     putStr "\nIf you'd like to skip a relic press enter. (after mine 1)"
     putStr "\n\n"
     putStr "\n\n\n\n\n\n\n\n\n\n\n"
+    putStr "Pick one of the following: "
+    putStr "\n\n"
+    print starterDisplay
+    putStr "\n"
     print "Mine 1: "
     x1 <- getLine :: IO String
     x1 <- findIndexWithError x1 "Mine 1: " starterDisplay

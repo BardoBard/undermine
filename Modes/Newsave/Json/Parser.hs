@@ -28,7 +28,6 @@ starterDisplay = do
   let display = map (\ x -> [get| x.display |]) base
   let condition = map (\ x -> isJust [get| x.tables.relicStarter |]) base
 
-  result <- masterindex starterIndex $ remove T.empty $ zipWith isTrue condition display
-  return $ map T.unpack result 
+  masterindex starterIndex $ remove "" $ zipWith isTrue condition display
 
 

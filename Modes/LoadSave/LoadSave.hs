@@ -10,21 +10,21 @@ import Modes.Error
 import Modes.LoadSave.Json.Parser
 
 loadsaveBacktracking list n = do
-    inputItems <- inputWeight
+    inputWeight <- inputWeight
     return $ take n [seed |
         -- TODO: change -1 to a maybe
-        let sum0     =  sum inputItems,
+        let sum0     =  sum inputWeight,
 
         --Seed
         seed <- [1000000..99999999],
 
         --Tutorial
-        let x1       =  getIndex (seed + 1) inputItems sum0, --find relic in starter relics
+        let x1       =  getIndex (seed + 1) inputWeight sum0, --find relic in starter relics
         [x1]         == take 1 list,
 
         --Mine 2
         let index1   = list !! 1,
-        let items1   = replaceAt x1 0 inputItems, --replace last found relic to not show up again
+        let items1   = replaceAt x1 0 inputWeight, --replace last found relic to not show up again
         let sum1     = sum items1, --get the sum of items
         let x2       = getIndex (seed + 2) items1 sum1, --find relic specific relic
         x2 == index1 || index1 == (-1), --check if user doesn't want relic or relic is what user wants
