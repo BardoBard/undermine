@@ -14,13 +14,17 @@ type Relics = [schema|
     relics: List {
       guid: String,
       name: Text,
-      display: Text,
+      display: String,
       rarity: Text,
       crafting: Int,
       cost: Int,
       extra: String,
       tables: {
         relic: Maybe {
+            index: Int,
+            weight: Int,
+            },
+        relicAll: Maybe {
             index: Int,
             weight: Int,
             },

@@ -14,7 +14,7 @@ import Json.SaveParser
 
 isTrue x y
   | x         = y
-  | otherwise = T.empty
+  | otherwise = []
 
 masterindex x y = do
   x' <- x
@@ -43,11 +43,14 @@ maxWeight = (masterindex maxIndex . map (\ x -> [get| x.weight |])) =<< relics
 
 maxIndex  = map (\ x -> [get| x.index |]) <$> relics
 
+display = map (\ x -> [get| x.display |]) <$> baseRelic
+condition = map (\ x -> isJust [get| x.tables.relic |]) <$> baseRelic
+
+--["Bombushka","Seer's Blood","Rook's Bomb","Lightning Bomb","Galoshes","Bottled Lightning","Salamander Tail","Guidance","Ursine Ring","Demon Ring","Intensifier","Cracked Orb","Conductor","Grimhilde's Mirror","Meal Ticket","Dillon's Claw","Bramble Vest","Leftovers","Spare Ordnance","Simple Chest","Unstable Concoction","Totem of Life","Golden Popcorn","Miner's Flask","Sewing Kit","Floating Skull","Float Boots","Key Blade","War Paint","Sonic Boom","Gold Frenzy","Butcher's Cleaver","Iron Branch","Knight's Pendant","Queen's Crown","Aegis","Adventurer's Whip","Axe Thrower's Pendant","Cosmic Egg","Battle Standard","Battle Axe","Tent","Masa","Lunchbox","Phantasmal Axe","Gecko Blast","Soul Cannon","Greaves","Pauldron","Obsidian Knife","Fork","Ursa Major","Canis Major","Sagitta","Circinus","Orion's Sword","Shrapnel","Tortoise Shield","Golden Axe"]
 
 maxDisplay = do
   base <- baseRelic
   let display = map (\ x -> [get| x.display |]) base
   let condition = map (\ x -> isJust [get| x.tables.relic |]) base
 
-  result <- masterindex maxIndex $ remove T.empty $ zipWith isTrue condition display
-  return $ map T.unpack result 
+  masterindex maxIndex $ remove "" $ zipWith isTrue condition display
