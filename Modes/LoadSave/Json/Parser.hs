@@ -17,25 +17,28 @@ import Modes.Json.Shared
 import Modes.Newsave.Json.Parser
 import Modes.Shared
 
-saveInput = do
-    guids <- filter (/= "") . map (\ x -> case [get| x.tables.relic |] of
-                                                Just y  -> [get| x.guid |]
-                                                Nothing -> []             ) <$> baseRelic
-    unlocked <- unlocked
-    altarItemID <- altarItemID
-    return $ catMaybes [elemIndex x guids | x <- filter (/=altarItemID) unlocked]
+relicGuids = filter (/= "") . map (\ x -> case [get| x.tables.relic |] of
+                                           Just y  -> [get| x.guid |]
+                                           Nothing -> []             ) <$> baseRelic
 
-unlockedInput = do
+
+saveInput = do
+    relicGuids <- relicGuids
+    unlocked <- unlocked
+    return $ catMaybes [elemIndex x relicGuids | x <- unlocked] --check altaritemid later
+
+
+inputUnlocked = do
     maxDisplay <- maxDisplay
     saveInput  <- saveInput
-    return $ nub $ mapMaybe (`elemIndex` maxDisplay) newsaveDisplay ++ saveInput
+    altarItemID <- altarItemID
+    relicGuids <- relicGuids
+    return $ nub $ mapMaybe (`elemIndex` maxDisplay) newsaveDisplay ++ saveInput -- ++ elemIndex (filter (==altarItemID) relicGuids) relicGuids
 
 inputWeight = do
-    unlockedInput <- unlockedInput
     maxWeight <- maxWeight
-    return $ placeAtIndex [a | a <- [0..(length maxWeight - 1)], a `notElem` unlockedInput] (replicate 120 0) maxWeight
+    map (maxWeight !!) <$> inputUnlocked --return $ placeAtIndex [a | a <- [0..(length maxWeight - 1)], a `notElem` inputUnlocked] (replicate 120 0) maxWeight
 
 inputDisplay = do
-    inputWeight <- inputWeight
     maxDisplay <- maxDisplay
-    return $ [b | (a,b) <- zip inputWeight maxDisplay, a /= 0]
+    map (maxDisplay !!) <$> inputUnlocked
