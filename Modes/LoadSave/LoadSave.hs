@@ -182,6 +182,9 @@ loadfileMain = do
     putStr "\n\n"
     putStr "\n\n\n\n\n\n\n\n\n\n\n"
     
+    putStr "Continue?"
+    getLine
+
     inputDisplay <- inputDisplay
     userInput <- mapM (`nextRoom` inputDisplay) rooms
 
