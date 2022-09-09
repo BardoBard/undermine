@@ -2,19 +2,12 @@
 
 import Basic
 
-import System.Console.ANSI
-
-import Json.SaveParser
-import Modes.Newsave.Newsave
-import Modes.LoadSave.Json.Parser
-import Modes.LoadSave.LoadSave
+import System.Console.ANSI ( clearScreen, setSGR, ColorIntensity( Vivid ), ConsoleLayer( Foreground ), SGR( SetColor, Reset ), Color ( Red ))
 
 import Json.RelicParser (baseRelic)
-import Json.SaveParser
-import Modes.Json.Shared
-import Modes.Newsave.Json.Parser
-import Modes.Shared
 
+import Modes.NewSave.NewSave ( newsaveMain )
+import Modes.LoadSave.LoadSave ( loadfileMain )
 
 main = do
     clearScreen
@@ -25,10 +18,28 @@ main = do
     setSGR [SetColor Foreground Vivid Red]
     putStr "nearly enough "
     setSGR [Reset]
-    putStr "seeds for permutations exceeding 5 relics"
-    putStr "\n\n"
-    putStr "Type either \"newsave\" or \"100\" for the right save file"
+    putStr "seeds for permutations exceeding 4 relics"
+    putStr "\n\nThis issue will be fixed in the next update!!!!"
+    putStr "\n\n\n"
+    putStr "Type either \"newsave\" or \"loadfile\" for the right mode"
     putStr "\n\n\n\n\n\n\n\n\n\n\n\n"
-    newsave
-    
-newsave = newsaveMain
+
+    modeParsing "Error, wrong input."
+
+goToModes mode
+    | mode == "newsave"  = newsaveMain
+    | mode == "loadfile" = loadfileMain
+
+modes = ["newsave", "loadfile"]
+
+modeParsing msg = do
+    x <- getLine :: IO String
+    if x `elem` modes
+        then goToModes x
+    else do
+        print msg
+        modeParsing msg
+
+
+
+newsave = loadfileMain
