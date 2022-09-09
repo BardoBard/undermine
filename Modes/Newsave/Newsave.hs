@@ -39,7 +39,7 @@ newsaveBacktracking list n = do
         let sum0     =  sum starterItems,
 
         --Seed
-        seed <- [10000..99999999],
+        seed <- [0..99999999],
 
         --Tutorial
         let x1       =  getIndex (seed + 1) starterItems sum0, --find relic in starter relics
