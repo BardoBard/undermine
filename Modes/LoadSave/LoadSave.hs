@@ -1,30 +1,42 @@
 module Modes.LoadSave.LoadSave where
 
-import System.Console.ANSI
-import System.TimeIt
-import Data.List
+import System.Console.ANSI ( clearScreen )
+import System.TimeIt ( timeIt )
+import Data.List ( transpose )
+import Data.Maybe ( fromJust )
 
-import Basic
-import Modes.Shared
-import Modes.Error
-import Modes.LoadSave.Json.Parser
+--My Libs
+
+import Modes.Shared (rooms, showDisplay, getIndex, replaceAt', sum', dibbleItem )
+import Modes.Error (nextRoom, amount, outPut)
+import Modes.LoadSave.Json.Parser ( inputWeight, inputDisplay)
 
 loadsaveBacktracking list n = do
-    inputWeight <- inputWeight
-    return $ take n [seed |
+    print "Parsing Json..."
+    inputWeight  <- inputWeight
+    inputDisplay <- inputDisplay
+    print "Parsing done!"
+    return $ take n [("Dibble: " ++ outPut dibbleItem inputDisplay "Nothing found!", seed) |
         -- TODO: change -1 to a maybe
-        let sum0     =  sum inputWeight,
+        let sum0     = sum inputWeight,
+        let index0   = head list,
 
         --Seed
-        seed <- [1000000..99999999],
+        seed <- [0..99999999],
 
-        --Tutorial
-        let x1       =  getIndex (seed + 1) inputWeight sum0, --find relic in starter relics
-        [x1]         == take 1 list,
+        --Dibble Shop Item
+        dibbleItem <- [dibbleItem seed inputWeight sum0], --find relic in starter relics
+
+        --Mine 1
+        let items0   = replaceAt' dibbleItem dibbleItem inputWeight, --replace last found relic to not show up again
+        let sum0     = sum items0, --get the sum of items
+        let x1       = getIndex (seed + 1) items0 sum0, --find relic specific relic
+        x1 == index0 || index0 == (-1), --check if user doesn't want relic or relic is what user wants
+
 
         --Mine 2
         let index1   = list !! 1,
-        let items1   = replaceAt x1 0 inputWeight, --replace last found relic to not show up again
+        let items1   = replaceAt' index0 x1 items0, --replace last found relic to not show up again
         let sum1     = sum items1, --get the sum of items
         let x2       = getIndex (seed + 2) items1 sum1, --find relic specific relic
         x2 == index1 || index1 == (-1), --check if user doesn't want relic or relic is what user wants
@@ -164,8 +176,9 @@ loadfileMain = do
     inputDisplay <- inputDisplay
     clearScreen
     putStr "\n\n"
-    putStr "You are in newsave, if you'd like to quit press CTRL + C,"
-    putStr "\nIf you'd like to skip a relic press enter. (after mine 1)"
+    putStr "You are in load file, if you'd like to quit press CTRL + C,"
+    putStr "\nIf you'd like to skip a relic press enter."
+    putStr "\nPut your save file contents in JsonFiles/Save.json"
     putStr "\n\n"
     putStr "\n\n\n\n\n\n\n\n\n\n\n"
     userInput <- mapM (`nextRoom` inputDisplay) rooms
@@ -179,7 +192,6 @@ loadfileMain = do
     timeIt $ print x
     print "Finished"
 
-    appendFile "Output.txt" $ "\n\n" ++ "newsave permutations:" ++ " \n" ++ show (transpose [rooms, showDisplay inputDisplay userInput]) ++ "\nseeds: " ++ show x
+    appendFile "Output.txt" $ "\n\n" ++ "input file permutations:" ++ " \n" ++ show (transpose [rooms, showDisplay inputDisplay userInput]) ++ "\nseeds: " ++ show x
 
     getLine
-    loadfileMain
