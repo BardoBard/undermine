@@ -173,7 +173,6 @@ loadsaveBacktracking list n = do
 
 
 loadfileMain = do
-    inputDisplay <- inputDisplay
     clearScreen
     putStr "\n\n"
     putStr "You are in load file, if you'd like to quit press CTRL + C,"
