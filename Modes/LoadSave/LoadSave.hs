@@ -177,9 +177,12 @@ loadfileMain = do
     putStr "\n\n"
     putStr "You are in load file, if you'd like to quit press CTRL + C,"
     putStr "\nIf you'd like to skip a relic press enter."
-    putStr "\nPut your save file contents in JsonFiles/Save.json"
+    putStr "\n\n\nPut your save file contents in JsonFiles/Save.json"
+    putStr "\nOtherwise it won't work!!!!"
     putStr "\n\n"
     putStr "\n\n\n\n\n\n\n\n\n\n\n"
+    
+    inputDisplay <- inputDisplay
     userInput <- mapM (`nextRoom` inputDisplay) rooms
 
     clearScreen
