@@ -1,15 +1,15 @@
-module Modes.Newsave.Newsave where
+module Modes.NewSave.NewSave where
 
-import System.Console.ANSI
-import System.TimeIt
-import Data.List
+import System.Console.ANSI ( clearScreen )
+import System.TimeIt ( timeIt )
+import Data.List ( transpose )
 
---my libs
-import Modes.Shared
-import Modes.Json.Shared
-import Basic
-import Modes.Newsave.Json.Parser
-import Modes.Error
+--My Libs
+import Modes.Shared ( rooms, showDisplay, getIndex, replaceAt', sum', dibbleItem )
+import Modes.Json.Shared ( newsaveDisplay, newsaveWeight )
+import Modes.Newsave.Json.Parser ( starterDisplay, starterWeight)
+import Modes.Error ( findIndexWithError, nextRoom, amount)
+import Basic 
 
 starterToNewsave y = case y of
      0 -> 5
@@ -213,5 +213,4 @@ newsaveMain = do
     appendFile "Output.txt" $ "\n\n" ++ "newsave permutations:" ++ " \n" ++ show (transpose [rooms, (starterDisplay !! x1) : showDisplay newsaveDisplay (tail userInput)]) ++ "\nseeds: " ++ show x
 
     getLine
-    newsaveMain
     

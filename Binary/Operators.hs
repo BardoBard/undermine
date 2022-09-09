@@ -71,5 +71,5 @@ binMin = adder minB
 -- e.g | binPlus "1" "1001" -> "01010"
 --
 -- returns: resulting binary string
-binPlus :: [Char] -> [Char] -> [Char]
-binPlus = adder plusB
+binAdder :: [Char] -> [Char] -> [Char]
+binAdder = adder plusB

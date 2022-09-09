@@ -1,7 +1,9 @@
-module Basic where
+module Basic ( naturalPos, pop, listToLower, placeAtIndex, remove, splitOnAnyOf, replaceAt, iterateFunc, badImul' ) where
 
-import Control.Lens
+import Control.Lens 
 import Data.Char
+import Data.List
+import Data.List.Split
 
 -- |
 -- removes the last n elements from an array
@@ -101,6 +103,10 @@ toInt32 x =
         else x
 
 listToLower list = map toLower <$> list
+
+-- |
+-- credit: https://stackoverflow.com/users/126014/mark-seemann
+splitOnAnyOf ds xs = foldl' (\ys d -> ys >>= splitOn d) [xs] ds
 
 -- | 
 -- can't go smaller than 0

@@ -1,4 +1,4 @@
-module Binary.Logicgates where
+module Binary.Logicgates ( minB, plusB, orB, xorB, andB, xorB' ) where
 
 import Binary.Basic ( matchLength )
 
@@ -30,7 +30,7 @@ bufferB :: Char -> Char
 bufferB x = x
 
 -- | 
--- used for binary addition
+-- used for binary adder
 --
 -- same as a buffer
 plusB :: Char -> Char

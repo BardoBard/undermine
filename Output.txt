@@ -1,0 +1,21 @@
+
+
+input file permutations: 
+[["Mine 1","Heavy Boots"],["Mine 2","Orion's Sword"],["Mine 3","Nothing"],["Mine 4","Nothing"],["Dungeon 1","Nothing"],["Dungeon 2","Nothing"],["Dungeon 3","Nothing"],["Dungeon 4","Nothing"],["Halls 1","Nothing"],["Halls 2","Nothing"],["Halls 3","Nothing"],["Halls 4","Nothing"],["Caverns 1","Nothing"],["Caverns 2","Nothing"],["Caverns 3","Nothing"],["Caverns 4","Nothing"],["Core 1","Nothing"],["Core 2","Nothing"],["Core 3","Nothing"],["Core 4","Nothing"]]
+seeds: [("Just \"Othermine Conduit\"",6440)]
+
+input file permutations: 
+[["Mine 1","Blood Bomb"],["Mine 2","Nothing"],["Mine 3","Nothing"],["Mine 4","Nothing"],["Dungeon 1","Nothing"],["Dungeon 2","Nothing"],["Dungeon 3","Nothing"],["Dungeon 4","Nothing"],["Halls 1","Nothing"],["Halls 2","Nothing"],["Halls 3","Nothing"],["Halls 4","Nothing"],["Caverns 1","Nothing"],["Caverns 2","Nothing"],["Caverns 3","Nothing"],["Caverns 4","Nothing"],["Core 1","Nothing"],["Core 2","Nothing"],["Core 3","Nothing"],["Core 4","Nothing"]]
+seeds: [("Just Nothing",179)]
+
+input file permutations: 
+[["Mine 1","Tent"],["Mine 2","Fork"],["Mine 3","Nothing"],["Mine 4","Nothing"],["Dungeon 1","Nothing"],["Dungeon 2","Nothing"],["Dungeon 3","Nothing"],["Dungeon 4","Nothing"],["Halls 1","Nothing"],["Halls 2","Nothing"],["Halls 3","Nothing"],["Halls 4","Nothing"],["Caverns 1","Nothing"],["Caverns 2","Nothing"],["Caverns 3","Nothing"],["Caverns 4","Nothing"],["Core 1","Nothing"],["Core 2","Nothing"],["Core 3","Nothing"],["Core 4","Nothing"]]
+seeds: [("Just Nothing",35045)]
+
+input file permutations: 
+[["Mine 1","Fork"],["Mine 2","Nothing"],["Mine 3","Nothing"],["Mine 4","Nothing"],["Dungeon 1","Nothing"],["Dungeon 2","Nothing"],["Dungeon 3","Nothing"],["Dungeon 4","Nothing"],["Halls 1","Nothing"],["Halls 2","Nothing"],["Halls 3","Nothing"],["Halls 4","Nothing"],["Caverns 1","Nothing"],["Caverns 2","Nothing"],["Caverns 3","Nothing"],["Caverns 4","Nothing"],["Core 1","Nothing"],["Core 2","Nothing"],["Core 3","Nothing"],["Core 4","Nothing"]]
+seeds: [("Nothing",53)]
+
+input file permutations: 
+[["Mine 1","Blast Suit"],["Mine 2","Nothing"],["Mine 3","Nothing"],["Mine 4","Nothing"],["Dungeon 1","Nothing"],["Dungeon 2","Nothing"],["Dungeon 3","Nothing"],["Dungeon 4","Nothing"],["Halls 1","Nothing"],["Halls 2","Nothing"],["Halls 3","Nothing"],["Halls 4","Nothing"],["Caverns 1","Nothing"],["Caverns 2","Nothing"],["Caverns 3","Nothing"],["Caverns 4","Nothing"],["Core 1","Nothing"],["Core 2","Nothing"],["Core 3","Nothing"],["Core 4","Nothing"]]
+seeds: [("Dibble: Blood Bomb",87)]

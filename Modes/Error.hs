@@ -1,12 +1,19 @@
-module Modes.Error where
+module Modes.Error ( findIndexWithError, nextRoom, amount, outPut ) where
 
+--Other Libs
+
+import System.Console.ANSI ( clearScreen )
 import Data.List ( elemIndex )
-import System.Console.ANSI
-import Text.Read (readMaybe)
-import Data.Char (toLower)
-import Control.Applicative (liftA2)
+import Text.Read ( readMaybe )
+import Data.Char ( toLower )
+import Control.Applicative ( liftA2 )
 
+--My Libs
 import Basic
+
+outPut index list msg
+        | index == (-1) = msg
+        | otherwise     = list !! index
 
 
 

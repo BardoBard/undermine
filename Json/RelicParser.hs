@@ -1,7 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE QuasiQuotes #-}
 
-module Json.RelicParser where
+module Json.RelicParser ( baseRelic ) where
 
 import Basic
 

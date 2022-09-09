@@ -1,4 +1,4 @@
-module Binary.Shift where
+module Binary.Shift ( shiftBinL32, shiftBinR32 ) where
 
 import Basic ( pop )
 import Binary.Basic ( toBinx )

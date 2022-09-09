@@ -1,7 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE QuasiQuotes #-}
 
-module Json.SaveParser where
+module Json.SaveParser ( baseSave, unlocked, altarItemID, upgradeString ) where
 
 
 import Data.Aeson (eitherDecodeFileStrict)

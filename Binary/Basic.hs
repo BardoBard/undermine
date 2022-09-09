@@ -1,4 +1,4 @@
-module Binary.Basic where
+module Binary.Basic ( matchLength, toBinx) where
   
 import Basic ( naturalPos )
 

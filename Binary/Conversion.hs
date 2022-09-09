@@ -1,8 +1,8 @@
-module Binary.Conversion where
+module Binary.Conversion (toDec, decToBase) where
   
 import Data.List ( foldl' )
 import Data.Char ( digitToInt, intToDigit )
-import Binary.Operators ( binPlus )
+import Binary.Operators ( binAdder )
 
 -- |
 -- converts binary to an int
@@ -23,7 +23,7 @@ toDec = foldl' (\acc x -> acc * 2 + digitToInt x) 0
 --
 -- returns: two's complement string from 1's complement
 toTwos :: [Char] -> [Char]
-toTwos x = binPlus "1" $ inverseBin x
+toTwos x = binAdder "1" $ inverseBin x
 
 -- | 
 -- inverses all of the 1 and 0's

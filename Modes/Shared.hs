@@ -1,4 +1,4 @@
-module Modes.Shared where
+module Modes.Shared ( rooms, showDisplay, getIndex, replaceAt', sum', dibbleItem ) where
 
 --my libs
 
@@ -36,6 +36,11 @@ sum' x y z
 
 showDisplay list = zipWith (\ x y -> if y == (-1) then "Nothing" else list !! y) list
 
+dibbleItem seed items sum = if doesDibbleHaveItem then getIndex seed items sum else (-1)
+    where
+        doesDibbleHaveItem = range 1 8 seed == 8
+
+    
 getIndex seed items sum = reduceWeight items $ range 1 sum seed
 
 replaceAt' :: (Eq a1, Num a1, Num a2) => a1 -> Int -> [a2] -> [a2]
