@@ -33,7 +33,9 @@ starterToNewsave y = case y of
 -- returns: [seed]
 --newsaveBacktracking :: [Int] -> Int -> [Int]
 newsaveBacktracking list n = do
+    print "Parsing Json..."
     starterItems <- starterWeight
+    print "Parsing done!"
     return $ take n [seed |
         -- TODO: change -1 to a maybe
         let sum0     =  sum starterItems,
